@@ -69,6 +69,32 @@
        </form>
     </section>
 
+    <section id="Filtros">
+        <h2>Pesquisar Coleção</h2>
+        <div>
+                <label for="busca">Buscar por nome:</label>
+                <input type="search" id="busca" name="busca">
+            
+                <label for="filtro-categoria">Filtrar por categoria:</label>
+                <select id="filtro-categoria" name="filtro-categoria">
+                    <option value="Todas">Todas</option>
+                    <option value="Labios">Labios</option>
+                    <option value="Olhos">Olhos</option>
+                    <option value="Pele">Pele</option>
+                    <option value="Skincare">Skincare</option>
+                </select>
+            
+                <label for="ordernar">Ordenar por:</label>
+                <select id="ordernar" name="ordernar">
+                    <option value="nome">Nome</option>
+                    <option value="Validade">Data de Validade</option>
+                    <option value="avaliacao">Avaliação</option>
+                </select>
+            
+            <button type="button">Filtrar</button>
+        </div>
+    </section>
+
  </main>
 
  <footer>
