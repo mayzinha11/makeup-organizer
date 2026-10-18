@@ -1,147 +1,201 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Makeup Organizer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Makeup Organizer</title>
+  <!-- Conexão com o CSS que criaremos no próximo passo -->
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Fonte Google para modernizar a identidade visual -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
- <header>
-    <h1> Makeup Organizer</h1>
-    <p>Sistema de gestao e controle de maquiagem e cosmeticos</p>
-    <nav>
+  <!-- Cabeçalho e Navegação Principal -->
+  <header class="main-header">
+    <div class="header-content">
+      <div class="brand">
+        <h1>Makeup Organizer</h1>
+        <p>Sistema de gestão e controle de maquiagem e cosméticos</p>
+      </div>
+      <nav class="main-nav">
         <ul>
-            <li><a href="#cadastro">Cadastrar Produtos</a></li>
-            <li><a href="#filtros">Pesquisar</a></li>
-            <li><a href="#colecao">Minha Colecao</a></li>
-            <li><a href="#detalhes">Detalhes</a></li>
+          <li><a href="#cadastro">Cadastrar Produtos</a></li>
+          <li><a href="#filtros">Pesquisar</a></li>
+          <li><a href="#colecao">Minha Coleção</a></li>
+          <li><a href="#detalhes">Detalhes</a></li>
         </ul>
-    </nav>
- </header>
+      </nav>
+    </div>
+  </header>
 
- <main>
-    <section id="cadastro">
-       <h2>Cadastrar Novo Produto</h2>
-       <form>
-        <div>
-            <label for="nome">Nome do Produto:</label>
-            <input type="text" id="nome" name="nome" required>
+  <!-- Conteúdo Principal -->
+  <main class="main-container">
+    
+    <!-- Formulário de Cadastro -->
+    <section id="cadastro" class="card">
+      <div class="section-header">
+        <h2>Cadastrar Novo Produto</h2>
+        <p class="subtitle">Adicione novos itens ao seu estoque pessoal</p>
+      </div>
+
+      <form id="form-cadastro" class="form-grid">
+        <div class="form-group full-width">
+          <label for="nome">Nome do Produto:</label>
+          <input type="text" id="nome" name="nome" placeholder="Ex: Base Líquida Soft Matte" required>
         </div>
 
-        <div>
-            <label for="marca">Marca:</label>
-            <input type="text" id="marca" name="marca" required>
+        <div class="form-group">
+          <label for="marca">Marca:</label>
+          <input type="text" id="marca" name="marca" placeholder="Ex: Fenty Beauty" required>
         </div>
 
-        <div>
-            <label for="categoria">Categoria:</label>
-            <select id="categoria" name="categoria" required>
-                <option value="">Selecione</option>
-                <option value="batom">Labios</option>
-                <option value="base">Olhos</option>
-                <option value="sombra">Pele</option>
-                <option value="blush">Skincare</option>
-            </select>
+        <div class="form-group">
+          <label for="categoria">Categoria:</label>
+          <select id="categoria" name="categoria" required>
+            <option value="">Selecione...</option>
+            <option value="labios">Lábios</option>
+            <option value="olhos">Olhos</option>
+            <option value="pele">Pele</option>
+            <option value="skincare">Skincare</option>
+          </select>
         </div>
 
-        <div>
-            <label for="Validade">Data de Validade:</label>
-            <input type="date" id="Validade" name="Validade">
+        <div class="form-group">
+          <label for="validade">Data de Validade:</label>
+          <input type="date" id="validade" name="validade" required>
         </div>
 
-        <div>
-            <label for="status">Status de Uso:</label>
-            <select id="status" name="status">
-                <option value="lacrado">Lacrado</option>
-                <option value="em-uso">Em uso</option>
-                <option value="Finalizado">Finalizado</option>
-            </select>
+        <div class="form-group">
+          <label for="status">Status de Uso:</label>
+          <select id="status" name="status">
+            <option value="lacrado">Lacrado</option>
+            <option value="em-uso">Em uso</option>
+            <option value="finalizado">Finalizado</option>
+          </select>
         </div>
 
-        <div>
-            <label for="avaliacao">Avaliação (1 a 5):</label>
-            <input type="number" id="avaliacao" name="avaliacao" min="1" max="5" value="5">
+        <div class="form-group">
+          <label for="avaliacao">Avaliação (1 a 5):</label>
+          <input type="number" id="avaliacao" name="avaliacao" min="1" max="5" value="5">
         </div>
 
-        <div>
-            <button type="submit">Salvar Produto</button>
-       </form>
+        <div class="form-actions full-width">
+          <button type="submit" class="btn btn-primary">Salvar Produto</button>
+        </div>
+      </form>
     </section>
 
-    <section id="Filtros">
+    <!-- Área de Pesquisa e Filtros -->
+    <section id="filtros" class="card">
+      <div class="section-header">
         <h2>Pesquisar Coleção</h2>
-        <div>
-                <label for="busca">Buscar por nome:</label>
-                <input type="search" id="busca" name="busca">
-            
-                <label for="filtro-categoria">Filtrar por categoria:</label>
-                <select id="filtro-categoria" name="filtro-categoria">
-                    <option value="Todas">Todas</option>
-                    <option value="Labios">Labios</option>
-                    <option value="Olhos">Olhos</option>
-                    <option value="Pele">Pele</option>
-                    <option value="Skincare">Skincare</option>
-                </select>
-            
-                <label for="ordernar">Ordenar por:</label>
-                <select id="ordernar" name="ordernar">
-                    <option value="nome">Nome</option>
-                    <option value="Validade">Data de Validade</option>
-                    <option value="avaliacao">Avaliação</option>
-                </select>
-            
-            <button type="button">Filtrar</button>
+      </div>
+
+      <div class="filters-container">
+        <div class="form-group flex-grow">
+          <label for="busca">Buscar por nome:</label>
+          <input type="search" id="busca" name="busca" placeholder="Digite o nome do produto...">
         </div>
+
+        <div class="form-group">
+          <label for="filtro-categoria">Filtrar por categoria:</label>
+          <select id="filtro-categoria" name="filtro-categoria">
+            <option value="todas">Todas</option>
+            <option value="labios">Lábios</option>
+            <option value="olhos">Olhos</option>
+            <option value="pele">Pele</option>
+            <option value="skincare">Skincare</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="ordenar">Ordenar por:</label>
+          <select id="ordenar" name="ordenar">
+            <option value="nome">Nome</option>
+            <option value="validade">Data de Validade</option>
+            <option value="avaliacao">Avaliação</option>
+          </select>
+        </div>
+
+        <div class="filter-actions">
+          <button type="button" class="btn btn-secondary">Filtrar</button>
+        </div>
+      </div>
     </section>
 
-    <section id="colecao">
-        <h2>Meus Produtos</h2>
+    <!-- Área de Exibição: Coleção + Detalhes (Layout em Grid) -->
+    <div class="content-layout">
+      <!-- Listagem dos Itens -->
+      <section id="colecao" class="products-section">
+        <div class="section-header">
+          <h2>Meus Produtos</h2>
+          <span class="badge">2 itens cadastrados</span>
+        </div>
 
-        <article
+        <div class="products-grid">
+          <article class="product-card">
+            <div class="card-status-pill status-lacrado">Lacrado</div>
+            <h3>Base Líquida Soft</h3>
+            <ul class="product-info">
+              <li><strong>Marca:</strong> Fenty Beauty</li>
+              <li><strong>Categoria:</strong> Pele</li>
+              <li><strong>Validade:</strong> 15/05/2027</li>
+              <li><strong>Nota:</strong> ★ 4.0</li>
+            </ul>
+            <div class="card-actions">
+              <button type="button" class="btn btn-sm btn-outline">Ver Detalhes</button>
+              <button type="button" class="btn btn-sm btn-secondary">Editar</button>
+              <button type="button" class="btn btn-sm btn-danger">Excluir</button>
+            </div>
+          </article>
+
+          <article class="product-card">
+            <div class="card-status-pill status-em-uso">Em uso</div>
             <h3>Batom Matte Velvet</h3>
-            <p><strong>Marca:</strong> rare beauty</p>
-            <p><strong>Categoria:</strong> Labios</p>
-            <p><strong>Status:</strong> Em uso</p>
-            <p><strong> Validade:</strong> 2026-12-01</p>
-            <p><strong>Nota:</strong> 5</p>
+            <ul class="product-info">
+              <li><strong>Marca:</strong> Rare Beauty</li>
+              <li><strong>Categoria:</strong> Lábios</li>
+              <li><strong>Validade:</strong> 20/12/2026</li>
+              <li><strong>Nota:</strong> ★ 5.0</li>
+            </ul>
+            <div class="card-actions">
+              <button type="button" class="btn btn-sm btn-outline">Ver Detalhes</button>
+              <button type="button" class="btn btn-sm btn-secondary">Editar</button>
+              <button type="button" class="btn btn-sm btn-danger">Excluir</button>
+            </div>
+          </article>
+        </div>
+      </section>
 
-            <button type="button">Ver Detalhes</button>
-            <button type="button">Editar</button>
-            <button type="button">Excluir</button>
-        </article>
+      <!-- Detalhes do Produto Selecionado -->
+      <aside id="detalhes" class="card details-aside">
+        <div class="section-header">
+          <h2>Detalhes do Produto</h2>
+        </div>
+        <p class="help-text">Selecione um produto da lista para ver todas as informações técnicas.</p>
 
-        <article>
-            <h3>Base Liquida soft</h3>
-            <p><strong>Marca:</strong> Fenty Beauty</p>
-            <p><strong>Categoria:</strong> Pele</p>
-            <p><strong>Status:</strong> Lacrado</p>
-            <p><strong> Validade:</strong> 2027-05-15</p>
-            <p><strong>Nota:</strong> 4</p>
-
-            <button type="button">Ver Detalhes</button>
-            <button type="button">Editar</button>
-            <button type="button">Excluir</button>
-        </article>
-    </section>
-
-    <aside id="detalhes">
-        <h2>Detalhes do Produto Selecionado</h2>
-        <p>Selecione um produto para ver os detalhes.</p>
-        <div>
-            <h3>Batom Matte Velvet - rare beauty</h3>
+        <div class="details-content">
+          <h3>Batom Matte Velvet – Rare Beauty</h3>
+          <div class="details-list">
             <p><strong>Lote:</strong> 8921</p>
-            <p><strong>Data de abertura:</strong> 2026-01-15</p>
-            <p><strong>Observações:</strong> Textura Aveludada, e longa duração.</p>
-         </div>       
-    </aside>
+            <p><strong>Data de abertura:</strong> 15/01/2026</p>
+            <p><strong>Observações:</strong> Textura aveludada, longa duração e acabamento matte confortável.</p>
+          </div>
+        </div>
+      </aside>
+    </div>
 
-        
- </main>
+  </main>
 
- <footer>
-    <p>&copy; 2026 Makeup Organizer. Trabalho pratico de Desenvolvimento Web.</p>
-</footer>
+  <!-- Rodapé -->
+  <footer class="main-footer">
+    <div class="footer-content">
+      <p>&copy; 2026 Makeup Organizer. Trabalho Prático de Desenvolvimento Web.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
