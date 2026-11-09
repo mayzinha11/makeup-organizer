@@ -165,3 +165,62 @@ formCadastro.addEventListener('submit', function (evento) {
 
 carregarDoStorage();
 renderizarProdutos();
+
+function exibirDetalhes(id) {
+  const produto = produtos.find((p) => p.id === id);
+  if (!produto) return;
+
+  const containerDetalhes = document.getElementById('conteudo-detalhes');
+  const textoCategoria = nomesCategorias[produto.categoria] || produto.categoria;
+  const textoStatus = nomesStatus[produto.status] || produto.status;
+
+  containerDetalhes.innerHTML = `
+    <h3>${produto.nome} – ${produto.marca}</h3>
+    <div class="details-list">
+      <p><strong>Categoria:</strong> ${textoCategoria}</p>
+      <p><strong>Status:</strong> ${textoStatus}</p>
+      <p><strong>Lote:</strong> ${produto.lote || 'Não informado'}</p>
+      <p><strong>Validade:</strong> ${formatarData(produto.validade)}</p>
+      <p><strong>Avaliação:</strong> ★ ${Number(produto.avaliacao).toFixed(1)} / 5.0</p>
+      <p><strong>Observações:</strong> ${produto.observacoes || 'Nenhuma observação cadastrada.'}</p>
+    </div>
+  `;
+}
+
+function prepararEdicao(id) {
+  const produto = produtos.find((p) => p.id === id);
+  if (!produto) return;
+
+  document.getElementById('nome').value = produto.nome;
+  document.getElementById('marca').value = produto.marca;
+  document.getElementById('categoria').value = produto.categoria;
+  document.getElementById('validade').value = produto.validade;
+  document.getElementById('status').value = produto.status;
+  document.getElementById('avaliacao').value = produto.avaliacao;
+  document.getElementById('lote').value = produto.lote || '';
+  document.getElementById('observacoes').value = produto.observacoes || '';
+
+  idEmEdicao = produto.id;
+  document.getElementById('btn-salvar').textContent = 'Atualizar Produto';
+  mostrarFeedback(`Editando "${produto.nome}". Altere os dados e clique em Atualizar Produto.`);
+  window.location.hash = '#cadastro';
+}
+
+function excluirProduto(id) {
+  produtos = produtos.filter((p) => p.id !== id);
+  salvarNoStorage();
+  renderizarProdutos();
+  mostrarFeedback('Produto removido da coleção.');
+}
+
+document.getElementById('grid-produtos').addEventListener('click', function (evento) {
+  const botao = evento.target.closest('button[data-acao]');
+  if (!botao) return;
+
+  const acao = botao.getAttribute('data-acao');
+  const id = Number(botao.getAttribute('data-id'));
+
+  if (acao === 'detalhes') exibirDetalhes(id);
+  if (acao === 'editar') prepararEdicao(id);
+  if (acao === 'excluir') excluirProduto(id);
+});
