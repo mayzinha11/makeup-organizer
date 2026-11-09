@@ -224,3 +224,39 @@ document.getElementById('grid-produtos').addEventListener('click', function (eve
   if (acao === 'editar') prepararEdicao(id);
   if (acao === 'excluir') excluirProduto(id);
 });
+
+function aplicarFiltrosEOrdenacao() {
+  const termo = document.getElementById('busca').value.toLowerCase().trim();
+  const categoriaSelecionada = document.getElementById('filtro-categoria').value;
+  const criterioOrdem = document.getElementById('ordenar').value;
+
+  const filtrados = produtos.filter((item) => {
+    const bateBusca =
+      item.nome.toLowerCase().includes(termo) ||
+      item.marca.toLowerCase().includes(termo);
+    const bateCategoria =
+      categoriaSelecionada === 'todas' || item.categoria === categoriaSelecionada;
+
+    return bateBusca && bateCategoria;
+  });
+
+  filtrados.sort((a, b) => {
+    if (criterioOrdem === 'nome') {
+      return a.nome.localeCompare(b.nome);
+    }
+    if (criterioOrdem === 'validade') {
+      return (a.validade || '9999-12-31').localeCompare(b.validade || '9999-12-31');
+    }
+    if (criterioOrdem === 'avaliacao') {
+      return b.avaliacao - a.avaliacao;
+    }
+    return 0;
+  });
+
+  renderizarProdutos(filtrados);
+}
+
+document.getElementById('busca').addEventListener('input', aplicarFiltrosEOrdenacao);
+document.getElementById('filtro-categoria').addEventListener('change', aplicarFiltrosEOrdenacao);
+document.getElementById('ordenar').addEventListener('change', aplicarFiltrosEOrdenacao);
+document.getElementById('btn-filtrar').addEventListener('click', aplicarFiltrosEOrdenacao);
