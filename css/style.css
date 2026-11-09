@@ -459,3 +459,15 @@ body {
     width: 100%;
   }
 }
+
+.status-finalizado {
+  background-color: #fef3c7;
+  color: #d97786;
+}
+
+.feedback-msg {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}

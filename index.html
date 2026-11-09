@@ -26,6 +26,7 @@
           <li><a href="#filtros">Pesquisar</a></li>
           <li><a href="#colecao">Minha Coleção</a></li>
           <li><a href="#detalhes">Detalhes</a></li>
+          <li><a href="#catalogo-api">Catálogo API</a></li>
         </ul>
       </nav>
     </div>
@@ -37,11 +38,14 @@
     <!-- Formulário de Cadastro -->
     <section id="cadastro" class="card">
       <div class="section-header">
+        <div>
         <h2>Cadastrar Novo Produto</h2>
         <p class="subtitle">Adicione novos itens ao seu estoque pessoal</p>
-      </div>
+        </div>
+      </div>  
 
-      <form id="form-cadastro" class="form-grid">
+      <form id="form-cadastro" 
+      class="form-grid" novalidate>
         <div class="form-group full-width">
           <label for="nome">Nome do Produto:</label>
           <input type="text" id="nome" name="nome" placeholder="Ex: Base Líquida Soft Matte" required>
@@ -82,10 +86,22 @@
           <input type="number" id="avaliacao" name="avaliacao" min="1" max="5" value="5">
         </div>
 
+        <div class="form-group">
+          <label for="lote">lote:</label>
+          <input type="text" id="lote" name="lote" placeholder="Ex: 8921">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="observacoes">Observações:</label>
+          <input type="text" id="observacoes" name="observacoes" placeholder="Ex: Textura aveludada, longa duração e acabamento confortável.">
+        </div>
+
         <div class="form-actions full-width">
           <button type="submit" class="btn btn-primary">Salvar Produto</button>
         </div>
       </form>
+    
+    <p id="mensagem-feedback" class="feedback-message"></p>
     </section>
 
     <!-- Área de Pesquisa e Filtros -->
@@ -121,7 +137,7 @@
         </div>
 
         <div class="filter-actions">
-          <button type="button" class="btn btn-secondary">Filtrar</button>
+          <button type="button" id="btn-filtrar" class="btn btn-secondary">Filtrar</button>
         </div>
       </div>
     </section>
@@ -132,62 +148,54 @@
       <section id="colecao" class="products-section">
         <div class="section-header">
           <h2>Meus Produtos</h2>
-          <span class="badge">2 itens cadastrados</span>
+          <span id="contador-produtos" class="badge">2 itens cadastrados</span>
         </div>
 
-        <div class="products-grid">
-          <article class="product-card">
-            <div class="card-status-pill status-lacrado">Lacrado</div>
-            <h3>Base Líquida Soft</h3>
-            <ul class="product-info">
-              <li><strong>Marca:</strong> Fenty Beauty</li>
-              <li><strong>Categoria:</strong> Pele</li>
-              <li><strong>Validade:</strong> 15/05/2027</li>
-              <li><strong>Nota:</strong> ★ 4.0</li>
-            </ul>
-            <div class="card-actions">
-              <button type="button" class="btn btn-sm btn-outline">Ver Detalhes</button>
-              <button type="button" class="btn btn-sm btn-secondary">Editar</button>
-              <button type="button" class="btn btn-sm btn-danger">Excluir</button>
-            </div>
-          </article>
-
-          <article class="product-card">
-            <div class="card-status-pill status-em-uso">Em uso</div>
-            <h3>Batom Matte Velvet</h3>
-            <ul class="product-info">
-              <li><strong>Marca:</strong> Rare Beauty</li>
-              <li><strong>Categoria:</strong> Lábios</li>
-              <li><strong>Validade:</strong> 20/12/2026</li>
-              <li><strong>Nota:</strong> ★ 5.0</li>
-            </ul>
-            <div class="card-actions">
-              <button type="button" class="btn btn-sm btn-outline">Ver Detalhes</button>
-              <button type="button" class="btn btn-sm btn-secondary">Editar</button>
-              <button type="button" class="btn btn-sm btn-danger">Excluir</button>
-            </div>
-          </article>
+        <div id="grid-produtos" class="products-grid">
+          <!-- Os cartões serão gerados pelo Js -->
         </div>
       </section>
 
-      <!-- Detalhes do Produto Selecionado -->
-      <aside id="detalhes" class="card details-aside">
+     <!-- Detalhes do Produto Selecionado--> 
+     <aside id="detalhes" class="card details-aside">
         <div class="section-header">
           <h2>Detalhes do Produto</h2>
         </div>
-        <p class="help-text">Selecione um produto da lista para ver todas as informações técnicas.</p>
-
-        <div class="details-content">
-          <h3>Batom Matte Velvet – Rare Beauty</h3>
+          <p class="help-text">selicona um produto da lista para ver todas as informações técnicas.</p>
+        
+        <div id="conteudo-detalhes" class="details-content">
+          <h3>Batom Matte Velvet - Rare Beauty</h3>
           <div class="details-list">
             <p><strong>Lote:</strong> 8921</p>
-            <p><strong>Data de abertura:</strong> 15/01/2026</p>
+            <p><strong>Validade:</strong> 20/12/2026</p>
             <p><strong>Observações:</strong> Textura aveludada, longa duração e acabamento matte confortável.</p>
           </div>
         </div>
       </aside>
     </div>
+          
+    #consumo de API Publica
+    <section id="catalogo-api" class="card">
+      <div class="section-header">
+        <div>
+          <h2>Catálogo Externo de Cosméticos (API Pública)</h2>
+          <p class="subtitle">Pesquise produtos na API pública e adicione diretamente à sua coleção</p>
+        </div>
+      </div>
 
+      <div class="filters-container">
+        <div class="form-group flex-grow">
+          <label for="busca-api">Pesquisar cosmético na API</label>
+          <input type="search" id="busca-api" name="busca-api" placeholder="Ex: mascara, lipstick, eyeshadow, essence...">
+        </div>
+        <div class="filter-actions">
+          <button type="button" id="btn-buscar-api" class="btn btn-primary">Buscar na API</button>
+        </div>
+      </div>
+
+      <div id="lista-api" class="products-grid" style="margin-top: 1.25rem;"></div>
+    </section>
+        
   </main>
 
   <!-- Rodapé -->
@@ -197,5 +205,6 @@
     </div>
   </footer>
 
+  <script src="js/script.js"></script>
 </body>
 </html>
