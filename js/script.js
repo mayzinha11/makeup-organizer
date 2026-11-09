@@ -260,3 +260,80 @@ document.getElementById('busca').addEventListener('input', aplicarFiltrosEOrdena
 document.getElementById('filtro-categoria').addEventListener('change', aplicarFiltrosEOrdenacao);
 document.getElementById('ordenar').addEventListener('change', aplicarFiltrosEOrdenacao);
 document.getElementById('btn-filtrar').addEventListener('click', aplicarFiltrosEOrdenacao);
+
+const btnBuscarApi = document.getElementById('btn-buscar-api');
+const inputBuscaApi = document.getElementById('busca-api');
+const containerApi = document.getElementById('lista-api');
+let cacheApi = [];
+
+async function consultarApiCosmeticos() {
+  containerApi.innerHTML = '<p class="help-text">Carregando produtos da API pública...</p>';
+  const termo = inputBuscaApi.value.toLowerCase().trim();
+
+  try {
+    const resposta = await fetch('https://dummyjson.com/products/category/beauty');
+    const dados = await resposta.json();
+
+    cacheApi = dados.products.filter((prod) =>
+      prod.title.toLowerCase().includes(termo) ||
+      (prod.brand && prod.brand.toLowerCase().includes(termo))
+    );
+
+    containerApi.innerHTML = '';
+
+    if (cacheApi.length === 0) {
+      containerApi.innerHTML = '<p class="help-text">Nenhum cosmético encontrado na API para esse termo.</p>';
+      return;
+    }
+
+    cacheApi.forEach((item) => {
+      const card = document.createElement('article');
+      card.className = 'product-card';
+
+      card.innerHTML = `
+        <div class="card-status-pill status-lacrado">Catálogo API</div>
+        <h3>${item.title}</h3>
+        <ul class="product-info">
+          <li><strong>Marca:</strong> ${item.brand || 'Glow Beauty'}</li>
+          <li><strong>Nota Média:</strong> ★ ${Number(item.rating).toFixed(1)}</li>
+          <li><strong>Código SKU:</strong> ${item.sku || 'API-' + item.id}</li>
+        </ul>
+        <div class="card-actions">
+          <button type="button" class="btn btn-sm btn-primary" data-id-api="${item.id}">+ Adicionar à Minha Coleção</button>
+        </div>
+      `;
+
+      containerApi.appendChild(card);
+    });
+  } catch (erro) {
+    containerApi.innerHTML = '<p class="help-text">Não foi possível carregar os dados da API no momento.</p>';
+  }
+}
+
+btnBuscarApi.addEventListener('click', consultarApiCosmeticos);
+
+containerApi.addEventListener('click', function (evento) {
+  const botao = evento.target.closest('button[data-id-api]');
+  if (!botao) return;
+
+  const idApi = Number(botao.getAttribute('data-id-api'));
+  const itemApi = cacheApi.find((p) => p.id === idApi);
+  if (!itemApi) return;
+
+  const novoItem = {
+    id: Date.now(),
+    nome: itemApi.title,
+    marca: itemApi.brand || 'Glow Beauty',
+    categoria: 'pele',
+    validade: '2027-12-31',
+    status: 'lacrado',
+    avaliacao: Math.min(5, Math.max(1, Math.round(itemApi.rating))),
+    lote: itemApi.sku || `API-${itemApi.id}`,
+    observacoes: itemApi.description
+  };
+
+  produtos.push(novoItem);
+  salvarNoStorage();
+  renderizarProdutos();
+  mostrarFeedback(`"${itemApi.title}" foi importado da API para a sua coleção!`);
+});
